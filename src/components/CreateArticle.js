@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 
-// import { changePassword } from '../api'
-// import messages from '../messages'
+import { createArticle } from './api'
+import messages from '../auth/messages'
 
 class CreateArticle extends Component {
   constructor () {
@@ -23,16 +23,27 @@ class CreateArticle extends Component {
   onCreateArticle = event => {
     event.preventDefault()
 
-    // const { alert, history, user } = this.props
-    //
-    // changePassword(this.state, user)
-    //   .then(() => alert(messages.changePasswordSuccess, 'success'))
-    //   .then(() => history.push('/'))
-    //   .catch(error => {
-    //     console.error(error)
-    //     this.setState({ oldPassword: '', newPassword: '' })
-    //     alert(messages.changePasswordFailure, 'danger')
-    //   })
+    const { alert, history, user } = this.props
+
+    createArticle(this.state, user)
+      .then(() => alert(messages.changePasswordSuccess, 'success'))
+      .then(() => history.push('/create-article'))
+      .then(() => this.setState({
+        title: '',
+        description: '',
+        author: '',
+        tags: ''
+      }))
+      .catch(error => {
+        console.error(error)
+        this.setState({
+          title: '',
+          description: '',
+          author: '',
+          tags: ''
+        })
+        alert(messages.changePasswordFailure, 'danger')
+      })
   }
 
   render () {
