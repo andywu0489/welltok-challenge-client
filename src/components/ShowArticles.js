@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../apiConfig'
 
@@ -49,7 +50,9 @@ class ShowArticles extends React.Component {
               <p>Author: {article.author}</p>
               <p>Tags: {article.tags}</p>
               <button onClick={() => this.destroyArticle(article._id)}>Delete</button>
-              <button>Edit</button>
+              <Link to={'/edit-article'}>
+                <button>Edit</button>
+              </Link>
             </div>
           )) : ''
           }
