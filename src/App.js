@@ -64,8 +64,8 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/show-articles' render={() => (
             <ShowArticles alert={this.alert} user={user} />
           )} />
-          <AuthenticatedRoute user={user} path='/edit-article' render={() => (
-            <EditArticle alert={this.alert} user={user} />
+          <AuthenticatedRoute user={user} path='/article/:id/edit' render={({ match }) => (
+            <EditArticle alert={this.alert} user={user} match={match}/>
           )} />
         </main>
       </React.Fragment>

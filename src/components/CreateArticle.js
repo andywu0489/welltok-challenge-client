@@ -23,11 +23,11 @@ class CreateArticle extends Component {
   onCreateArticle = event => {
     event.preventDefault()
 
-    const { alert, history, user } = this.props
+    const { alert, user } = this.props
 
     createArticle(this.state, user)
       .then(() => alert(messages.changePasswordSuccess, 'success'))
-      .then(() => history.push('/create-article'))
+      // .then(() => history.push('/create-article'))
       .then(() => this.setState({
         title: '',
         description: '',

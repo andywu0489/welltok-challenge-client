@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
+import axios from 'axios'
+import apiUrl from '../apiConfig'
+import { Redirect } from 'react-router'
 
-// import { createArticle } from './api'
-// import messages from '../auth/messages'
+import { editArticle } from './api'
+import messages from '../auth/messages'
 
 class EditArticle extends Component {
   constructor () {
     super()
 
     this.state = {
+      editedArticle: false,
+      article: null,
       title: '',
       description: '',
       author: '',
@@ -16,81 +21,101 @@ class EditArticle extends Component {
     }
   }
 
+  componentDidMount () {
+    const { user } = this.props
+    axios({
+      url: `${apiUrl}/articles/${this.props.match.params.id}`,
+      method: 'GET',
+      headers: {
+        'Authorization': `Token token=${user.token}`
+      }
+    })
+      .then(response => this.setState(
+        { article: response.data.article
+        }))
+      .then(() => console.log(this.data.article))
+      .catch(() => this.setState(
+        { shouldRedirect: true, redirectMessage: 'Purchase not found' }))
+  }
+
   handleChange = event => this.setState({
     [event.target.name]: event.target.value
   })
 
-  // onCreateArticle = event => {
-  //   event.preventDefault()
-  //
-  //   const { alert, history, user } = this.props
-  //
-  //   createArticle(this.state, user)
-  //     .then(() => alert(messages.changePasswordSuccess, 'success'))
-  //     .then(() => history.push('/create-article'))
-  //     .then(() => this.setState({
-  //       title: '',
-  //       description: '',
-  //       author: '',
-  //       tags: ''
-  //     }))
-  //     .catch(error => {
-  //       console.error(error)
-  //       this.setState({
-  //         title: '',
-  //         description: '',
-  //         author: '',
-  //         tags: ''
-  //       })
-  //       alert(messages.changePasswordFailure, 'danger')
-  //     })
-  // }
+  onEditArticle = event => {
+    event.preventDefault()
+
+    const { alert, history, user } = this.props
+
+    editArticle(this.state.article._id, this.state.title, this.state.description, this.state.author, this.state.tags, user)
+      .then(() => alert(messages.changePasswordSuccess, 'success'))
+      .then(() => history.push('/article/:id/edit'))
+      .then(() => this.setState({
+        title: '',
+        description: '',
+        author: '',
+        tags: ''
+      }))
+      .then(() => this.setState({
+        editedArticle: true
+      }))
+      .catch(error => {
+        console.error(error)
+        this.setState({
+          title: '',
+          description: '',
+          author: '',
+          tags: ''
+        })
+        alert(messages.changePasswordFailure, 'danger')
+      })
+  }
 
   render () {
-    const { title, description, author, tags } = this.state
+    if (this.state.editedArticle) {
+      return <Redirect to='/show-articles' />
+    }
 
     return (
-      <form className='auth-form' onSubmit={this.onCreateArticle}>
-        <h3>Edit Article</h3>
+      <div>  { this.state.article
+        ? <form className='auth-form' onSubmit={this.onEditArticle}>
+          <h3>Edit Article</h3>
 
-        <label htmlFor="title">Title</label>
-        <input
-          required
-          name="title"
-          value={title}
-          type="text"
-          placeholder="Title"
-          onChange={this.handleChange}
-        />
-        <label htmlFor="description">Description</label>
-        <textarea
-          required
-          name="description"
-          value={description}
-          type="text"
-          placeholder="Description"
-          onChange={this.handleChange}
-        />
-        <label htmlFor="author">Author</label>
-        <input
-          required
-          name="author"
-          value={author}
-          type="text"
-          placeholder="Author"
-          onChange={this.handleChange}
-        />
-        <label htmlFor="newPassword">Tags</label>
-        <input
-          required
-          name="tags"
-          value={tags}
-          type="text"
-          placeholder="Tags"
-          onChange={this.handleChange}
-        />
-        <button type="submit">Submit</button>
-      </form>
+          <label htmlFor="title">Title</label>
+          <input
+            name="title"
+            value={this.state.title}
+            type="text"
+            placeholder={`${this.state.article.title}`}
+            onChange={this.handleChange}
+          />
+          <label htmlFor="description">Description</label>
+          <textarea
+            name="description"
+            value={this.state.description}
+            type="text"
+            placeholder={`${this.state.article.description}`}
+            onChange={this.handleChange}
+          />
+          <label htmlFor="author">Author</label>
+          <input
+            name="author"
+            value={this.state.author}
+            type="text"
+            placeholder={`${this.state.article.author}`}
+            onChange={this.handleChange}
+          />
+          <label htmlFor="tags">Tags</label>
+          <input
+            name="tags"
+            value={this.state.tags}
+            type="text"
+            placeholder={`${this.state.article.tags}`}
+            onChange={this.handleChange}
+          />
+          <button type="submit">Submit</button>
+        </form> : '' }
+      </div>
     )
   }
 }

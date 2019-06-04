@@ -18,3 +18,21 @@ export const createArticle = (article, user) => {
     }
   })
 }
+
+export const editArticle = (id, title, description, author, tags, user) => {
+  return axios({
+    url: `${apiUrl}/articles/${id}`,
+    method: 'PATCH',
+    headers: {
+      'Authorization': `Token token=${user.token}`
+    },
+    data: {
+      article: {
+        title: title,
+        description: description,
+        author: author,
+        tags: tags
+      }
+    }
+  })
+}

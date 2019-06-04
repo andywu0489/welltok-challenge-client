@@ -50,7 +50,7 @@ class ShowArticles extends React.Component {
               <p>Author: {article.author}</p>
               <p>Tags: {article.tags}</p>
               <button onClick={() => this.destroyArticle(article._id)}>Delete</button>
-              <Link to={'/edit-article'}>
+              <Link to={`/article/${article._id}/edit`}>
                 <button>Edit</button>
               </Link>
             </div>
