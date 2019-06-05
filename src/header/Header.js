@@ -16,13 +16,12 @@ const unauthenticatedOptions = (
   <React.Fragment>
     <Link to="/sign-up">Sign Up</Link>
     <Link to="/sign-in">Sign In</Link>
-    <Link to="/">Home</Link>
   </React.Fragment>
 )
 
 const alwaysOptions = (
   <React.Fragment>
-
+    <Link to="/">Home</Link>
   </React.Fragment>
 )
 

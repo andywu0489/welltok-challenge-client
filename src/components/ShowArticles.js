@@ -14,7 +14,7 @@ class ShowArticles extends React.Component {
 
   componentDidMount () {
     axios({
-      url: apiUrl + '/articles',
+      url: apiUrl + '/my-articles',
       method: 'get',
       headers: {
         'Authorization': `Token token=${this.props.user.token}`
@@ -45,13 +45,8 @@ class ShowArticles extends React.Component {
         <div>
           {this.state.articles ? this.state.articles.data.articles.map(article => (
             <div key={article._id}>
-              <h2>Title: {article.title}</h2>
-              <p>Description: {article.description}</p>
-              <p>Author: {article.author}</p>
-              <p>Tags: {article.tags}</p>
-              <button onClick={() => this.destroyArticle(article._id)}>Delete</button>
-              <Link to={`/article/${article._id}/edit`}>
-                <button>Edit</button>
+              <Link to={`/article/${article._id}`}>
+                <h2>Title: {article.title}</h2>
               </Link>
             </div>
           )) : ''

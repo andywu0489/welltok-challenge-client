@@ -11,6 +11,8 @@ import ChangePassword from './auth/components/ChangePassword'
 import CreateArticle from './components/CreateArticle'
 import ShowArticles from './components/ShowArticles'
 import EditArticle from './components/EditArticle'
+import AllArticles from './components/AllArticles'
+import ShowMyArticle from './components/ShowMyArticle'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -46,26 +48,32 @@ class App extends Component {
           </Alert>
         ))}
         <main className="container">
-          <Route path='/sign-up' render={() => (
+          <Route exact path='/sign-up' render={() => (
             <SignUp alert={this.alert} setUser={this.setUser} />
           )} />
-          <Route path='/sign-in' render={() => (
+          <Route exact path='/sign-in' render={() => (
             <SignIn alert={this.alert} setUser={this.setUser} />
           )} />
-          <AuthenticatedRoute user={user} path='/sign-out' render={() => (
+          <AuthenticatedRoute user={user} exact path='/sign-out' render={() => (
             <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />
           )} />
-          <AuthenticatedRoute user={user} path='/change-password' render={() => (
+          <AuthenticatedRoute user={user} exact path='/change-password' render={() => (
             <ChangePassword alert={this.alert} user={user} />
           )} />
-          <AuthenticatedRoute user={user} path='/create-article' render={() => (
+          <AuthenticatedRoute user={user} exact path='/create-article' render={() => (
             <CreateArticle alert={this.alert} user={user} />
           )} />
-          <AuthenticatedRoute user={user} path='/show-articles' render={() => (
+          <AuthenticatedRoute user={user} exact path='/show-articles' render={() => (
             <ShowArticles alert={this.alert} user={user} />
           )} />
-          <AuthenticatedRoute user={user} path='/article/:id/edit' render={({ match }) => (
+          <AuthenticatedRoute user={user} exact path='/article/:id/edit' render={({ match }) => (
             <EditArticle alert={this.alert} user={user} match={match}/>
+          )} />
+          <Route exact path='/' render={() => (
+            <AllArticles/>
+          )} />
+          <AuthenticatedRoute user={user} exact path='/article/:id' render={({ match }) => (
+            <ShowMyArticle alert={this.alert} user={user} match={match}/>
           )} />
         </main>
       </React.Fragment>

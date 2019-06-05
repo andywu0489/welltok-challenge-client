@@ -73,7 +73,7 @@ class EditArticle extends Component {
 
   render () {
     if (this.state.editedArticle) {
-      return <Redirect to='/show-articles' />
+      return <Redirect to={`/article/${this.state.article._id}`} />
     }
 
     return (
