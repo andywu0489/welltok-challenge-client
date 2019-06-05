@@ -32,6 +32,7 @@ class App extends Component {
 
   alert = (message, type) => {
     this.setState({ alerts: [...this.state.alerts, { message, type }] })
+    setTimeout(() => { this.setState({ alerts: [] }) }, 1000)
   }
 
   render () {

@@ -1,5 +1,5 @@
 export default {
-  signUpSuccess: 'Succesfully registered! You\'ve been signed in as well.',
+  signUpSuccess: 'Successfully registered! You\'ve been signed in as well.',
   signUpFailure: 'Registration failed. Email may be taken, or passwords' +
    ' don\'t match.',
   signInSuccess: 'Welcome!',
@@ -8,5 +8,11 @@ export default {
   signOutSuccess: 'Come back soon!',
   changePasswordSuccess: 'Password changed successfully!',
   changePasswordFailure: 'Failed to change passwords. Check your old password' +
-                         ' and try again.'
+                         ' and try again.',
+  createArticleSuccess: 'Successfully created article',
+  createArticleFailure: 'Failed to create article',
+  editArticleSuccess: 'Successfully edit article',
+  editArticleFailure: 'Failed to edit article',
+  deleteArticleSuccess: 'Successfully deleted article',
+  deleteArticleFailure: 'Failed to delete article'
 }

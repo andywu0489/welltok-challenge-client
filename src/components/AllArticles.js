@@ -39,8 +39,9 @@ class AllArticles extends React.Component {
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
-                    <p>Author: {article.author}</p>
-                    <p>Tags: {article.tags}</p>
+                    <h6>Author: {article.author}</h6>
+                    <h6>Tags: {article.tags}</h6>
+                    <hr/>
                     <p>{article.description}</p>
                   </Card.Body>
                 </Accordion.Collapse>

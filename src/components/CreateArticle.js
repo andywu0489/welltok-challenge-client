@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
-
+import { Button, Jumbotron } from 'react-bootstrap'
 import { createArticle } from './api'
 import messages from '../auth/messages'
 
@@ -26,7 +26,7 @@ class CreateArticle extends Component {
     const { alert, user } = this.props
 
     createArticle(this.state, user)
-      .then(() => alert(messages.changePasswordSuccess, 'success'))
+      .then(() => alert(messages.createArticleSuccess, 'success'))
       // .then(() => history.push('/create-article'))
       .then(() => this.setState({
         title: '',
@@ -42,7 +42,7 @@ class CreateArticle extends Component {
           author: '',
           tags: ''
         })
-        alert(messages.changePasswordFailure, 'danger')
+        alert(messages.createArticleFailure, 'danger')
       })
   }
 
@@ -50,47 +50,48 @@ class CreateArticle extends Component {
     const { title, description, author, tags } = this.state
 
     return (
-      <form className='auth-form' onSubmit={this.onCreateArticle}>
-        <h3>Create Article</h3>
-
-        <label htmlFor="title">Title</label>
-        <input
-          required
-          name="title"
-          value={title}
-          type="text"
-          placeholder="Title"
-          onChange={this.handleChange}
-        />
-        <label htmlFor="description">Description</label>
-        <textarea
-          required
-          name="description"
-          value={description}
-          type="text"
-          placeholder="Description"
-          onChange={this.handleChange}
-        />
-        <label htmlFor="author">Author</label>
-        <input
-          required
-          name="author"
-          value={author}
-          type="text"
-          placeholder="Author"
-          onChange={this.handleChange}
-        />
-        <label htmlFor="newPassword">Tags</label>
-        <input
-          required
-          name="tags"
-          value={tags}
-          type="text"
-          placeholder="Tags"
-          onChange={this.handleChange}
-        />
-        <button type="submit">Submit</button>
-      </form>
+      <Jumbotron className='jumbotron'>
+        <form className='auth-form' onSubmit={this.onCreateArticle}>
+          <h3>Create Article</h3>
+          <label htmlFor="title">Title</label>
+          <input
+            required
+            name="title"
+            value={title}
+            type="text"
+            placeholder="Title"
+            onChange={this.handleChange}
+          />
+          <label htmlFor="description">Description</label>
+          <textarea
+            required
+            name="description"
+            value={description}
+            type="text"
+            placeholder="Description"
+            onChange={this.handleChange}
+          />
+          <label htmlFor="author">Author</label>
+          <input
+            required
+            name="author"
+            value={author}
+            type="text"
+            placeholder="Author"
+            onChange={this.handleChange}
+          />
+          <label htmlFor="newPassword">Tags</label>
+          <input
+            required
+            name="tags"
+            value={tags}
+            type="text"
+            placeholder="Tags"
+            onChange={this.handleChange}
+          />
+          <Button type="submit">Submit</Button>
+        </form>
+      </Jumbotron>
     )
   }
 }

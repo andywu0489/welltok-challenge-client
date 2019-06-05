@@ -33,7 +33,7 @@ $charcoal: #ccc;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin: 15% auto 0;
+  // margin: 15% auto 0;
   max-width: 600px;
 
   h3,
@@ -45,4 +45,19 @@ $charcoal: #ccc;
     align-self: flex-end;
     max-width: 200px;
   }
+}
+
+.jumbotron {
+  margin: 5% auto 0;
+  max-width: 650px;
+}
+
+.edit {
+  margin-left: 10px;
+}
+
+.message {
+  display: flex;
+  justify-content: center;
+  margin: 5% auto;
 }

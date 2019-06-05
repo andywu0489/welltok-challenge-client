@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../apiConfig'
 import { Redirect } from 'react-router'
+import { Button, Card } from 'react-bootstrap'
+import Accordion from 'react-bootstrap/Accordion'
 
 class ShowMyArticle extends React.Component {
   constructor () {
@@ -45,20 +47,33 @@ class ShowMyArticle extends React.Component {
     if (this.state.shouldRedirect) {
       return <Redirect to='/show-articles' />
     }
+
     return (
       <div>
         <div>
           {this.state.articles
-            ? <div key={this.state.articles.data.article._id}>
-              <h2>Title: {this.state.articles.data.article.title}</h2>
-              <p>Description: {this.state.articles.data.article.description}</p>
-              <p>Author: {this.state.articles.data.article.author}</p>
-              <p>Tags: {this.state.articles.data.article.tags}</p>
-              <button onClick={() => this.destroyArticle(this.state.articles.data.article._id)}>Delete</button>
-              <Link to={`/article/${this.state.articles.data.article._id}/edit`}>
-                <button>Edit</button>
-              </Link>
-            </div>
+            ? <Accordion defaultActiveKey="0" key={this.state.articles.data.article._id}>
+              <br/>
+              <Card>
+                <Card.Header>
+                  <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                    <h2>{this.state.articles.data.article.title}</h2>
+                  </Accordion.Toggle>
+                </Card.Header>
+                <Accordion.Collapse eventKey="0">
+                  <Card.Body>
+                    <h6>Author: {this.state.articles.data.article.author}</h6>
+                    <h6>Tags: {this.state.articles.data.article.tags}</h6>
+                    <hr/>
+                    <p>{this.state.articles.data.article.description}</p>
+                    <Button onClick={() => this.destroyArticle(this.state.articles.data.article._id)}>Delete</Button>
+                    <Link to={`/article/${this.state.articles.data.article._id}/edit`}>
+                      <Button className='edit'>Edit</Button>
+                    </Link>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
             : ''
           }
         </div>

@@ -29,7 +29,6 @@ const Header = ({ user }) => (
   <header className="main-header">
     <h1>Welltok Challenge</h1>
     <nav>
-      { user && <span>Welcome, {user.email}</span>}
       { user ? authenticatedOptions : unauthenticatedOptions }
       { alwaysOptions }
     </nav>
