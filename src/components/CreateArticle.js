@@ -27,7 +27,6 @@ class CreateArticle extends Component {
 
     createArticle(this.state, user)
       .then(() => alert(messages.createArticleSuccess, 'success'))
-      // .then(() => history.push('/create-article'))
       .then(() => this.setState({
         title: '',
         description: '',
