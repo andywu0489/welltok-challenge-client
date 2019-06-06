@@ -5,6 +5,7 @@ import apiUrl from '../apiConfig'
 import { Redirect } from 'react-router'
 import { Button, Card } from 'react-bootstrap'
 import Accordion from 'react-bootstrap/Accordion'
+import messages from '../auth/messages'
 
 class ShowMyArticle extends React.Component {
   constructor () {
@@ -25,7 +26,6 @@ class ShowMyArticle extends React.Component {
       }
     })
       .then(response => this.setState({ articles: response }))
-      .then(() => console.log(this.state.articles))
       .catch(console.error)
   }
 
@@ -37,7 +37,7 @@ class ShowMyArticle extends React.Component {
         'Authorization': `Token token=${this.props.user.token}`
       }
     })
-
+      .then(() => this.props.alert(messages.deleteArticleSuccess, 'success'))
       .then(() => this.setState(
         { shouldRedirect: true, redirectMessage: 'Successfully deleted article' }))
       .catch(() => this.setState({ shouldRedirect: true }))

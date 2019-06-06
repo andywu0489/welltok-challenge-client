@@ -4,6 +4,7 @@ import axios from 'axios'
 import apiUrl from '../apiConfig'
 import { Card, Button } from 'react-bootstrap'
 import Accordion from 'react-bootstrap/Accordion'
+import messages from '../auth/messages'
 
 class ShowArticles extends React.Component {
   constructor () {
@@ -35,6 +36,7 @@ class ShowArticles extends React.Component {
         'Authorization': `Token token=${this.props.user.token}`
       }
     })
+      .then(() => this.props.alert(messages.deleteArticleSuccess, 'success'))
       .then(() => this.componentDidMount())
       .then(() => this.setState(
         { shouldRedirect: true, redirectMessage: 'Successfully deleted article' }))
