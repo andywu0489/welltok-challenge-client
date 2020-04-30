@@ -19,7 +19,6 @@ class AllArticles extends React.Component {
       method: 'get'
     })
       .then(response => this.setState({ articles: response }))
-      .then(() => console.log(this.state.articles.data.articles))
       .catch(console.error)
   }
 
